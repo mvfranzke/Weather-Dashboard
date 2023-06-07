@@ -65,3 +65,29 @@ function renderCurrentWeather(city, weather) {
   todayContainer.textContent = " ";
   todayContainer.append(card);
 }
+
+function renderForecastCard(forecast) {
+  let tempF = forecast.main.temp;
+  let humidity = forecast.main.humidity;
+  let windMph = forecast.wind.speed;
+  let col = document.createElement("div");
+  let card = document.createElement("div");
+  let cardBody = document.createElement("div");
+  let cardTitle = document.createElement("h5");
+  let weatherIcon = document.createElement("img");
+  let tempEl = document.createElement("p");
+  let windEl = document.createElement("p");
+  let humidityEl = document.createElement("p");
+
+  col.append(card);
+  card.append(cardBody);
+  cardBody.append(cardTitle, weatherIcon, tempEl, windEl, humidityEl);
+  col.classList.add("five-day-card");
+
+  cardTitle.textContent = dayjs(forecast.dt_txt).format("MMM DD YYYY");
+  tempEl.textContent = `Temperature: ${tempF} °F`;
+  windEl.textContent = `Wind: ${windMph} MPH`;
+  humidityEl.textContent = `Humidity: ${humidity} %`;
+
+  forecastContainer.append(col);
+}
