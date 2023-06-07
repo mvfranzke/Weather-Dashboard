@@ -147,7 +147,7 @@ function fetchCoords(search) {
     })
     .then(function (data) {
       if (!data[0]) {
-        alert("Location not found");
+        alert("Location not found. Please try again");
       } else {
         appendToHistory(search);
         fetchWeather(data[0]);
@@ -156,4 +156,15 @@ function fetchCoords(search) {
     .catch(function (err) {
       console.error(err);
     });
+}
+
+function handleSearchFormSubmit(e) {
+  if (!searchInput.value) {
+    return;
+  }
+
+  e.preventDefault();
+  let search = searchInput.value.trim();
+  fetchCoords(search);
+  searchInput.value = "";
 }
