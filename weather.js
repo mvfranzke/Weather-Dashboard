@@ -7,9 +7,8 @@ let todayContainer = document.getElementById("today");
 let forecastContainer = document.getElementById("forecast");
 let cityContainer = document.getElementById("history");
 
-
-function rendercity() {
-  cityContainer.textContent = " ";
+function renderCity() {
+  cityContainer.textContent = "";
   for (let i = 0; i < city.length; i++) {
     let btn = document.createElement("button");
     btn.classList.add("history-btn", "btn-history");
@@ -19,27 +18,28 @@ function rendercity() {
   }
 }
 
-
 function appendToHistory(search) {
   if (city.indexOf(search) !== -1) {
     return;
   }
   city.push(search);
   localStorage.setItem("search-history", JSON.stringify(city));
-  rendercity();
+  renderCity();
 }
 
-function initcity() {
+function initCity() {
   let storedHistory = localStorage.getItem("search-history");
   if (storedHistory) {
     city = JSON.parse(storedHistory);
+  } else {
+    city = [];
   }
-  rendercity();
+  renderCity();
 }
 
 function renderCurrentWeather(city, weather) {
   let date = dayjs().format("MMM DD YYYY");
-  // Store response data from our fetch request in letiables
+  // Store response data from our fetch request in variables
   let tempF = weather.main.temp;
   let windMph = weather.wind.speed;
   let humidity = weather.main.humidity;
@@ -62,7 +62,7 @@ function renderCurrentWeather(city, weather) {
   humidityEl.textContent = `Humidity: ${humidity} %`;
   cardBody.append(heading, tempEl, windEl, humidityEl);
 
-  todayContainer.textContent = " ";
+  todayContainer.textContent = "";
   todayContainer.append(card);
 }
 
@@ -91,7 +91,6 @@ function renderForecastCard(forecast) {
 
   forecastContainer.append(col);
 }
-
 
 function renderForecast(dailyForecast) {
   let startDt = dayjs().add(1, "day").startOf("day").unix();
@@ -159,17 +158,16 @@ function fetchCoords(search) {
 }
 
 function handleSearchFormSubmit(e) {
-  if (!searchInput.value) {
-    return;
-  }
-
   e.preventDefault();
   let search = searchInput.value.trim();
+  if (!search) {
+    return;
+  }
   fetchCoords(search);
   searchInput.value = "";
 }
 
-function handlecityClick(e) {
+function handleCityClick(e) {
   if (!e.target.matches(".btn-history")) {
     return;
   }
@@ -178,6 +176,6 @@ function handlecityClick(e) {
   fetchCoords(search);
 }
 
-initcity();
+initCity();
 searchForm.addEventListener("submit", handleSearchFormSubmit);
-cityContainer.addEventListener("click", handlecityClick);
+cityContainer.addEventListener("click", handleCityClick);
