@@ -114,3 +114,8 @@ function renderForecast(dailyForecast) {
   }
 }
 
+function renderItems(city, data) {
+  renderCurrentWeather(city, data.list[0], data.city.timezone);
+  renderForecast(data.list);
+}
+
