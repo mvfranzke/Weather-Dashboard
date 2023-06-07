@@ -119,3 +119,21 @@ function renderItems(city, data) {
   renderForecast(data.list);
 }
 
+function fetchWeather(location) {
+  let { lat } = location;
+  let { lon } = location;
+  let city = location.name;
+
+  let apiUrl = `${queryURL}/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${APIKey}`;
+
+  fetch(apiUrl)
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (data) {
+      renderItems(city, data);
+    })
+    .catch(function (err) {
+      console.error(err);
+    });
+}
