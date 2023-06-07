@@ -10,7 +10,7 @@ URL of deployed application : https://mvfranzke.github.io/Weather-Dashboard
 
 URL of Github repository : https://github.com/mvfranzke/Weather-Dashboard
 
-Screenshot of deployed application can be found here: ![alt text](./deployed%20page.jpg
+Screenshot of deployed application can be found here: ![alt text](./deployed%20page.jpg)
 
 ## Credits
 N/A
