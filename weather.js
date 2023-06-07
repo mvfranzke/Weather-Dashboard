@@ -168,3 +168,13 @@ function handleSearchFormSubmit(e) {
   fetchCoords(search);
   searchInput.value = "";
 }
+
+function handlecityClick(e) {
+  if (!e.target.matches(".btn-history")) {
+    return;
+  }
+
+  let btn = e.target;
+  let search = btn.getAttribute("data-search");
+  fetchCoords(search);
+}
