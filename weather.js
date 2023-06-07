@@ -91,3 +91,26 @@ function renderForecastCard(forecast) {
 
   forecastContainer.append(col);
 }
+
+
+function renderForecast(dailyForecast) {
+  let startDt = dayjs().add(1, "day").startOf("day").unix();
+  let endDt = dayjs().add(6, "day").startOf("day").unix();
+  let headingCol = document.createElement("div");
+  let heading = document.createElement("h4");
+
+  heading.textContent = "5-Day Forecast:";
+  headingCol.append(heading);
+
+  forecastContainer.innerHTML = "";
+  forecastContainer.append(headingCol);
+
+  for (let i = 0; i < dailyForecast.length; i++) {
+    if (dailyForecast[i].dt >= startDt && dailyForecast[i].dt < endDt) {
+      if (dailyForecast[i].dt_txt.slice(11, 13) == "12") {
+        renderForecastCard(dailyForecast[i]);
+      }
+    }
+  }
+}
+
