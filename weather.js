@@ -36,3 +36,32 @@ function initcity() {
   }
   rendercity();
 }
+
+function renderCurrentWeather(city, weather) {
+  let date = dayjs().format("MMM DD YYYY");
+  // Store response data from our fetch request in letiables
+  let tempF = weather.main.temp;
+  let windMph = weather.wind.speed;
+  let humidity = weather.main.humidity;
+  let iconUrl = `https://openweathermap.org/img/w/${weather.weather[0].icon}.png`;
+  let iconDescription = weather.weather[0].description || weather[0].main;
+
+  let card = document.createElement("div");
+  let cardBody = document.createElement("div");
+  let heading = document.createElement("h2");
+  let weatherIcon = document.createElement("img");
+  let tempEl = document.createElement("p");
+  let windEl = document.createElement("p");
+  let humidityEl = document.createElement("p");
+
+  card.append(cardBody);
+  heading.textContent = `${city} (${date})`;
+  heading.append(weatherIcon);
+  tempEl.textContent = `Temperature: ${tempF}°F`;
+  windEl.textContent = `Wind: ${windMph} MPH`;
+  humidityEl.textContent = `Humidity: ${humidity} %`;
+  cardBody.append(heading, tempEl, windEl, humidityEl);
+
+  todayContainer.textContent = " ";
+  todayContainer.append(card);
+}
