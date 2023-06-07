@@ -10,12 +10,9 @@ let cityContainer = document.getElementById("history");
 
 function rendercity() {
   cityContainer.textContent = " ";
-
   for (let i = 0; i < city.length; i++) {
     let btn = document.createElement("button");
     btn.classList.add("history-btn", "btn-history");
-
-    // `data-search` allows access to city name when click handler is invoked
     btn.setAttribute("data-search", city[i]);
     btn.textContent = city[i];
     cityContainer.append(btn);
@@ -24,12 +21,18 @@ function rendercity() {
 
 
 function appendToHistory(search) {
-  // If there is no search term return the function
   if (city.indexOf(search) !== -1) {
     return;
   }
   city.push(search);
-
   localStorage.setItem("search-history", JSON.stringify(city));
+  rendercity();
+}
+
+function initcity() {
+  let storedHistory = localStorage.getItem("search-history");
+  if (storedHistory) {
+    city = JSON.parse(storedHistory);
+  }
   rendercity();
 }
