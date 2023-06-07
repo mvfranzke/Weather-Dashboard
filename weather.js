@@ -21,3 +21,15 @@ function rendercity() {
     cityContainer.append(btn);
   }
 }
+
+
+function appendToHistory(search) {
+  // If there is no search term return the function
+  if (city.indexOf(search) !== -1) {
+    return;
+  }
+  city.push(search);
+
+  localStorage.setItem("search-history", JSON.stringify(city));
+  rendercity();
+}
